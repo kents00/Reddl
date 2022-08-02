@@ -15,7 +15,7 @@ please check the folders the delete those temporary files
 Support this Library: https://github.com/JackhammerYT/RedDownloader
 """
 class Download:
-  def __init__(self, url=None, subreddit=None, NumberOfPost=None, SortBy=None):
+  def __init__(self, url=None, subreddit=None, NumberOfPost=None, SortBy="hot"):
     self.url = url
     self.subreddit = subreddit
     self.NumberOfPost = NumberOfPost
