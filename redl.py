@@ -1,83 +1,79 @@
 import os
 from RedDownloader import RedDownloader
 
-download_path = "download"
+# Class Objects
+# Our object consist of:
+# Identity : Urls, subreddits( NumberofPost, Sortby)
+# State : Getting urls and subreddits names
+# Behaviors : Downloading Images, Videos.
 
-def get_video_subreddit(subreddit):
-    
-    get_shortby = int(input("Please select a shortby:\n[1] Top \n[2] New \n[3] Hot \n"))
-    if get_shortby == 1:
-        get_shortby = "top"
-    elif get_shortby == 2:
-        get_shortby = "new"
-    elif get_shortby == 3:
-        get_shortby = "hot"
-    else:
-        print("Invalid shortby")
-    NumberOfPosts = int(input("Please enter the number of posts to download: "))
-    RedDownloader.DownloadVideosBySubreddit(subreddit, quality=720, NumberOfPosts=NumberOfPosts , SortBy = get_shortby,destination=os.path.join(download_path, 'RedditVideos'))
-    print("Subreddit videos downloaded successfully!")
+"""
+Note: Downlaoding videos may sometimes getting some temporary files while downloading 
+according to the issue: #15 Unable to fetch posts Expecting value: line 1 column 1 (char 0) 
 
-def get_images_subreddit(subreddit):
-    
-    get_shortby = int(input("Please select a shortby:\n[1] Top \n[2] New \n[3] Hot \n"))
-    if get_shortby == 1:
-        get_shortby = "top"
-    elif get_shortby == 2:
-        get_shortby = "new"
-    elif get_shortby == 3:
-        get_shortby = "hot"
-    else:
-        print("Invalid shortby")
-    NumberOfPosts = int(input("Please enter the number of posts to download: "))
-    RedDownloader.DownloadImagesBySubreddit(subreddit, quality=720, NumberOfPosts=NumberOfPosts , SortBy = get_shortby,destination=os.path.join(download_path, 'RedditVideos'))
-    print("Subreddit Images downloaded successfully!")
+please check the folders the delete those temporary files
+Support this Library: https://github.com/JackhammerYT/RedDownloader
+"""
+class Download:
+  def __init__(self, url=None, subreddit=None, NumberOfPost=None, SortBy=None):
+    self.url = url
+    self.subreddit = subreddit
+    self.NumberOfPost = NumberOfPost
+    self.SortBy = SortBy
+    self.NumberOfPost = 1
 
-def get_stuff_subreddit(subreddit):
-    NumberOfPosts = int(input("Please enter the number of posts to download: "))
-    get_shortby = int(input("Please select a shortby:\n[1] Top \n[2] New \n[3] Hot \n"))
-    if get_shortby == 1:
-        get_shortby = "top"
-    elif get_shortby == 2:
-        get_shortby = "new"
-    elif get_shortby == 3:
-        get_shortby = "hot"
-    else:
-        print("Invalid shortby")
-    RedDownloader.DownloadBySubreddit(subreddit, quality=720, NumberOfPosts=NumberOfPosts, SortBy = get_shortby,flair = None ,destination=os.path.join(download_path, 'RedditVideos'))
-    print("Subreddit downloaded successfully!")
+    # Built-in Functions
+    self.download_path = "download"
+    self.destination = os.path.join(self.download_path, "Reddit Videos")
+    self.flair = None
+    self.quality = 1080
 
+  def get_single_video(self):
+    RedDownloader.Download(self.url,self.quality,self.destination)
+    return "Download Complete"
+
+  def get_subreddit(self):
+    RedDownloader.DownloadBySubreddit(self.subreddit, self.quality, self.flair, self.NumberOfPost, self.SortBy, self.destination)
+    return "Download Complete"
+
+  def get_video_subreddit(self):
+    RedDownloader.DownloadVideosBySubreddit(self.subreddit, self.quality, self.NumberOfPost, self.SortBy, self.destination)
+    return "Download Complete"
+  
+  def get_images_subreddit(self):
+    RedDownloader.DownloadImagesBySubreddit(self.subreddit, self.quality, self.NumberOfPost, self.SortBy, self.destination)
+    return "Download Complete"
+  
 def main():
     print("""
-    888888ba   88888888b 888888ba  888888ba  dP        
+    888888ba   88888888b 888888ba  888888ba  88        
     88    `8b  88        88    `8b 88    `8b 88        
-   a88aaaa8P' a88aaaa    88     88 88     88 88        
+    88aaaa8P'  88aaaa    88     88 88     88 88        
     88   `8b.  88        88     88 88     88 88        
     88     88  88        88    .8P 88    .8P 88        
-    dP     dP  88888888P 8888888P  8888888P  88888888P
+    dP     d8  88888888P 8888888P  8888888P  888888888
     """)
     get_vid = int(input("Please select a format:\n[1] Video \n[2] Download Random Stuff at Subreddit\n"))
 
     try:
         if get_vid == 1:
             url = input("Please enter the URL of the video: ")
-            RedDownloader.Download(url, quality=1080, destination=os.path.join(download_path, 'RedditVideos'), audio=True)
-            print("Video downloaded successfully!")
+            Download(url).get_single_video()
         elif get_vid == 2:
             select_type = int(input("Please select a format:\n[1] Video \n[2] Image \n[3] Random Stuff \n"))
             if select_type == 1:
                 subreddit = input("Please enter the subreddit: ")
-                get_video_subreddit(subreddit)
+                Download(subreddit).get_video_subreddit()
             elif select_type == 2:
                 subreddit = input("Please enter the subreddit: ")
-                get_images_subreddit(subreddit)
+                Download(subreddit).get_images_subreddit()
             elif select_type == 3:
                 subreddit = input("Please enter the subreddit: ")
-                get_stuff_subreddit(subreddit)
+                Download(subreddit).get_subreddit()
             else:
                 print("Invalid format")
     except ConnectionError:
         print("Connection Error")
 
 if __name__ == "__main__":
-    main()
+  main()
