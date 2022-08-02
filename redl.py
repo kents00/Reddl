@@ -8,7 +8,7 @@ from RedDownloader import RedDownloader
 # Behaviors : Downloading Images, Videos.
 
 """
-Note: Downlaoding videos may sometimes getting some temporary files while downloading 
+Note: Downlaoding videos may sometimes getting some temporary (mp3/mp4) files while downloading 
 according to the issue: #15 Unable to fetch posts Expecting value: line 1 column 1 (char 0) 
 
 please check the folders the delete those temporary files
@@ -51,7 +51,7 @@ def main():
     88aaaa8P'  88aaaa    88     88 88     88 88        
     88   `8b.  88        88     88 88     88 88        
     88     88  88        88    .8P 88    .8P 88        
-    dP     d8  88888888P 8888888P  8888888P  888888888
+    dP     dP  88888888P 8888888P  8888888P  88888888P
     """)
     get_vid = int(input("Please select a format:\n[1] Video \n[2] Download Random Stuff at Subreddit\n"))
 
