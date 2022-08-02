@@ -51,7 +51,7 @@ def main():
     88aaaa8P'  88aaaa    88     88 88     88 88        
     88   `8b.  88        88     88 88     88 88        
     88     88  88        88    .8P 88    .8P 88        
-    dP     d8  88888888P 8888888P  8888888P  88888888P
+    dP     dP  88888888P 8888888P  8888888P  88888888P
     """)
     get_vid = int(input("Please select a format:\n[1] Video \n[2] Download Random Stuff at Subreddit\n"))
 
