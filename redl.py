@@ -27,21 +27,22 @@ class Download:
     self.destination = os.path.join(self.download_path, "Reddit Videos")
     self.flair = None
     self.quality = 1080
+    self.title = RedDownloader.GetPostTitle(self.url_youtube_reddit).Get()
 
   def get_single_video(self):
-    RedDownloader.Download(self.url,self.quality,self.destination)
+    RedDownloader.Download(self.url,self.quality,self.destination,self.title)
     return "Download Complete"
 
   def get_subreddit(self):
-    RedDownloader.DownloadBySubreddit(self.subreddit, self.quality, self.flair, self.NumberOfPost, self.SortBy, self.destination)
+    RedDownloader.DownloadBySubreddit(self.subreddit, self.quality, self.flair, self.NumberOfPost, self.SortBy, self.destination,self.title)
     return "Download Complete"
 
   def get_video_subreddit(self):
-    RedDownloader.DownloadVideosBySubreddit(self.subreddit, self.quality, self.NumberOfPost, self.SortBy, self.destination)
+    RedDownloader.DownloadVideosBySubreddit(self.subreddit, self.quality, self.NumberOfPost, self.SortBy, self.destination,self.title)
     return "Download Complete"
   
   def get_images_subreddit(self):
-    RedDownloader.DownloadImagesBySubreddit(self.subreddit, self.quality, self.NumberOfPost, self.SortBy, self.destination)
+    RedDownloader.DownloadImagesBySubreddit(self.subreddit, self.quality, self.NumberOfPost, self.SortBy, self.destination,self.title)
     return "Download Complete"
   
 def main():
